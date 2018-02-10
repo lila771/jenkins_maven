@@ -1,13 +1,8 @@
-node {
-	def server
-	def rtMaven
-	def buildInfo
-	
+pipeline {
 	environment {
 		MAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
 	}
-	
 	stages {
 		stage('Build') {
 			steps {
@@ -21,9 +16,9 @@ node {
 			}
 		}	
 		stage('Artifactory configuration'){
-			server = Artifactory.server('artifactory2')
-			rtMaven = Artifactory.newMavenBuild()
-			buildInfo = Artifactory.newBuildInfo()
+			def server = Artifactory.server('artifactory2')
+			def rtMaven = Artifactory.newMavenBuild()
+			def buildInfo = Artifactory.newBuildInfo()
 			rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 			rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
 		}
@@ -36,5 +31,6 @@ node {
 		stage('Publish build info'){
 			server.publishBuildInfo buildInfo
 		}
-	}	
+	}
+	}
 }
