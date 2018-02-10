@@ -11,27 +11,27 @@ pipeline {
     }
 	
     stages {
-	    stage ('Build') {
+        stage('Build') {
             steps {
-			    checkout scm
+	        checkout scm
                 sh 'mvn clean findbugs:findbugs package'               
             }
-		}	
-	    stage ('Artifactory'){
-		    steps {
-			    def server = Artifactory.server('artifactory2')
-			    def rtMaven = Artifactory.newMavenBuild()
-			    def buildInfo = Artifactory.newBuildInfo()
-				buildInfo.env.capture = true
-				rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-				rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-				rtMaven.deployer.deployArtifacts = false
-				rtMaven.run pom: 'maven-example/pom.xml', goals: 'install', buildInfo: buildInfo
-				rtMaven.deployer.deployArtifacts buildInfo
-				server.publishBuildInfo buildInfo
-			}					
-				
-		}
+         }	
+	stage('Artifactory') {
+	    steps {
+	        def server = Artifactory.server('artifactory2')
+		def rtMaven = Artifactory.newMavenBuild()
+		def buildInfo = Artifactory.newBuildInfo()
+		buildInfo.env.capture = true
+		rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+		rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+		rtMaven.deployer.deployArtifacts = false
+		rtMaven.run pom: 'maven-example/pom.xml', goals: 'install', buildInfo: buildInfo
+		rtMaven.deployer.deployArtifacts buildInfo
+		server.publishBuildInfo buildInfo
+	    }					
+	
+	}
     }		
 	post {
         success {
