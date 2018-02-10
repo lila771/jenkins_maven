@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	environment {
-		ІMAGE = readMavenPom().getArtifactId()
+		IMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
 		def mvn_version = 'maven352'
 	}
