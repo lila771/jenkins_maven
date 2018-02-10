@@ -15,6 +15,7 @@
         <artifactId>Maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
+                 <url>https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin</url>
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
@@ -25,7 +26,55 @@
     <version>2.5-jenkins-1</version>
 </dependency>
          </dependencies>
-     </plugin>           
+     </plugin>  
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                         <url>https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin</url>
+                    <skip>true</skip>
+                </configuration>
+           <dependencies>
+                    <dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-deploy-plugin</artifactId>
+    <version>2.8.2</version>
+</dependency>
+                    </dependencies>
+                        </plugin>
+		</plugin> 
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>Maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+                 <url>https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin</url>
+          <archive>
+             <index>true</index>
+             <manifest>
+                <addClasspath>true</addClasspath>
+             </manifest>
+             <manifestEntries>
+                <Implementation-Version>1.0</Implementation-Version>
+             </manifestEntries>
+          </archive>
+        </configuration>
+              <dependencies>
+                       <dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>3.0.2</version>
+</dependency>
+   </dependencies>
+   </plugin>
+     <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-clean-plugin</artifactId>
+    <version>3.0.0</version>
+              <configuration>
+                       <url>https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin</url>
+                       </configuration>
+              </plugin>
   </plugins>
     </build>
          
