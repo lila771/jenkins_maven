@@ -18,8 +18,7 @@ pipeline {
             }
 		}
 	    stage('Artifactory'){
-		    steps {
-			    def server = Artifactory.server('artifactory2')
+		       def server = Artifactory.server('artifactory2')
 				def rtMaven = Artifactory.newMavenBuild()
 				buildInfo.env.capture = true
 				rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
@@ -28,9 +27,7 @@ pipeline {
 				def buildInfo = Artifactory.newBuildInfo()
 				rtMaven.run pom: 'maven-example/pom.xml', goals: 'install', buildInfo: buildInfo
 				rtMaven.deployer.deployArtifacts buildInfo
-				server.publishBuildInfo buildInfo
-			}					
-				
+				server.publishBuildInfo buildInfo			
 		}
 	}
     post {
