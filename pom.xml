@@ -69,10 +69,15 @@
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-clean-plugin</artifactId>
-			<version>3.0.0</version>
+			<version>2.6</version>
 				<configuration>
 					<url>https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin</url>
 				</configuration>
+			<dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-clean-plugin</artifactId>
+    <version>2.6</version>
+</dependency>
 		</plugin>
 	</plugins>
 	</build>
