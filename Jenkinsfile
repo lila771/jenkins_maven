@@ -24,26 +24,8 @@ pipeline {
 					def buildInfo = Artifactory.newBuildInfo()
 					rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 					rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-				}
-			}
-		}
-		stage('Install'){
-			steps{
-				script { 
 					rtMaven.run pom: 'pom.xml', goals: 'clean install'
-				}
-			}
-		}
-		stage('Deploy'){
-			steps{
-				script {
 					rtMaven.deployer.deployArtifacts buildInfo
-				}
-			}
-		}
-		stage('Publish build info'){
-			steps{
-				script {
 					server.publishBuildInfo buildInfo
 				}
 			}
