@@ -1,4 +1,4 @@
-pipeline {
+node {
 	def server
 	def rtMaven
 	def buildInfo
