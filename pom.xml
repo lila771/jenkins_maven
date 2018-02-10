@@ -8,6 +8,7 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
+        <build>
          <plugins>
      <plugin>
         <artifactId>Maven-compiler-plugin</artifactId>
@@ -28,12 +29,13 @@
                 <addClasspath>true</addClasspath>
              </manifest>
              <manifestEntries>
-                <Implementation-Version>${build.number}</Implementation-Version>
+                <Implementation-Version>1.0</Implementation-Version>
              </manifestEntries>
           </archive>
         </configuration>
      </plugin>
 </plugins>
+                 </build>
          
     <modules>
         <module>modules/helloworld</module>
