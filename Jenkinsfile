@@ -1,9 +1,9 @@
 pipeline {
 	agent any
 	environment {
-		def mvn_version = 'maven352'
 		ІMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
+		def mvn_version = 'maven352'
 	}
 	stages {
 		stage('Build') {
@@ -17,7 +17,7 @@ pipeline {
 				}
 			}
 		}	
-		stage('Artifactory configuration'){
+		stage('Artifactory deploy'){
 			steps{
 				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 					script {
