@@ -7,17 +7,11 @@ pipeline {
 	}
 	environment {
 	    IMAGE = readMavenPom().getArtifactId()
-        VERSION = readMavenPom().getVersion()
+            VERSION = readMavenPom().getVersion()
     }
 	
     stages {
-        stage('Build') {
-            steps {
-	        checkout scm
-                sh 'mvn clean findbugs:findbugs package'               
-            }
-         }	
-	stage('Artifactory') {
+        stage('Artifactory') {
 	    steps {
 	        def server = Artifactory.server('artifactory2')
 		def rtMaven = Artifactory.newMavenBuild()
@@ -30,8 +24,7 @@ pipeline {
 		rtMaven.deployer.deployArtifacts buildInfo
 		server.publishBuildInfo buildInfo
 	    }					
-	
-	}
+        }
     }		
 	post {
         success {
