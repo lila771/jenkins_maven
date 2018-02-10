@@ -29,6 +29,7 @@ pipeline {
 			         def server = Artifactory.server('artifactory2')
 			         def rtMaven = Artifactory.newMavenBuild()
 				    rtMaven.tool = 'maven352'
+				    env.JAVA_HOME ='/usr/lib/jvm/java-1.8-openjdk/jre'
 				    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 			   	    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 				    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
