@@ -1,7 +1,8 @@
 pipeline {
 	agent any
 	environment {
-		MAGE = readMavenPom().getArtifactId()
+		def mvn_version = 'maven352'
+		ІMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
 	}
 	stages {
@@ -18,15 +19,18 @@ pipeline {
 		}	
 		stage('Artifactory configuration'){
 			steps{
-				script {
-					def server = Artifactory.server('artifactory2')
-					def rtMaven = Artifactory.newMavenBuild()
-					def buildInfo = Artifactory.newBuildInfo()
-					rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-					rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-					rtMaven.run pom: 'pom.xml', goals: 'clean install'
-					rtMaven.deployer.deployArtifacts buildInfo
-					server.publishBuildInfo buildInfo
+				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+					script {
+						def server = Artifactory.server('artifactory2')
+						def rtMaven = Artifactory.newMavenBuild()
+						def buildInfo = Artifactory.newBuildInfo()
+						rtMaven.tool = 'maven352'
+						rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+						rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+						rtMaven.run pom: 'pom.xml', goals: 'clean install'
+						rtMaven.deployer.deployArtifacts buildInfo
+						server.publishBuildInfo buildInfo
+					}
 				}
 			}
 		}
