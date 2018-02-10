@@ -3,7 +3,7 @@ pipeline {
 		def server
 		def rtMaven
 		def buildInfo
-	}
+	
 	environment {
 		MAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
@@ -38,4 +38,5 @@ pipeline {
 			server.publishBuildInfo buildInfo
 		}
 	}
+	}	
 }
