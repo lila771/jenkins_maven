@@ -27,7 +27,7 @@ pipeline {
 			    script{
 				    def server = Artifactory.server('artifactory2')
 				    def rtMaven = Artifactory.newMavenBuild()
-				    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
+				    def buildInfo = rtMaven.run pom: '/pom.xml', goals: 'clean install'
 				    rtMaven.tool = 'maven352'
 				    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 				    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
