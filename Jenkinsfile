@@ -28,6 +28,7 @@ pipeline {
 			    script{
 			         def server = Artifactory.server('artifactory2')
 			         def rtMaven = Artifactory.newMavenBuild()
+				    rtMaven.tool = 'maven352'
 				    env.M2_HOME = '/usr/share/maven'
 				    env.JAVA_HOME ='/usr/lib/jvm/java-1.8-openjdk/jre'
 				    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
