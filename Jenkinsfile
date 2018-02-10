@@ -16,20 +16,28 @@ pipeline {
 			}
 		}	
 		stage('Artifactory configuration'){
-			def server = Artifactory.server('artifactory2')
-			def rtMaven = Artifactory.newMavenBuild()
-			def buildInfo = Artifactory.newBuildInfo()
-			rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-			rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+			script {
+				def server = Artifactory.server('artifactory2')
+				def rtMaven = Artifactory.newMavenBuild()
+				def buildInfo = Artifactory.newBuildInfo()
+				rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+				rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+			}
 		}
 		stage('Install'){
-			rtMaven.run pom: 'jenkins_project/pom.xml', goals: 'clean install'
+			script { 
+				rtMaven.run pom: 'jenkins_project/pom.xml', goals: 'clean install'
+			}
 		}
 		stage('Deploy'){
-		rtMaven.deployer.deployArtifacts buildInfo
+		script {
+			rtMaven.deployer.deployArtifacts buildInfo
+			}
 		}
 		stage('Publish build info'){
-			server.publishBuildInfo buildInfo
+			script {
+				server.publishBuildInfo buildInfo
+			}
 		}
 	}
 }
