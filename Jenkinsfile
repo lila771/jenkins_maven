@@ -1,4 +1,5 @@
 pipeline {
+	agent any
 	environment {
 		MAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
