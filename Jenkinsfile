@@ -30,7 +30,7 @@ pipeline {
 		stage('Install'){
 			steps{
 				script { 
-					rtMaven.run pom: 'jenkins_project/pom.xml', goals: 'clean install'
+					rtMaven.run pom: 'pom.xml', goals: 'clean install'
 				}
 			}
 		}
