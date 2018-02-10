@@ -1,8 +1,7 @@
 pipeline {
-	node {
-		def server
-		def rtMaven
-		def buildInfo
+	def server
+	def rtMaven
+	def buildInfo
 	
 	environment {
 		MAGE = readMavenPom().getArtifactId()
@@ -37,6 +36,5 @@ pipeline {
 		stage('Publish build info'){
 			server.publishBuildInfo buildInfo
 		}
-	}
 	}	
 }
