@@ -25,10 +25,10 @@ pipeline {
 	    stage('Artifactory'){
 		    steps {
 			    sh 'mvn --version'
-			    WithMaven(){
-				    script{
+			    script{
 			         def server = Artifactory.server('artifactory2')
 			         def rtMaven = Artifactory.newMavenBuild()
+				    rtMaven.tool = 'maven352'
 				    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 			   	    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 				    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
@@ -36,7 +36,7 @@ pipeline {
 				    server.publishBuildInfo buildInfo
 				}
 			    }
-			}					
+							
 				
 		}
     }
