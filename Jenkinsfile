@@ -24,6 +24,7 @@ pipeline {
 		}	
 	    stage('Artifactory'){
 		    steps {
+			    sh 'mvn --version'
 			    script{
 				    def server = Artifactory.server('artifactory2')
 				    def rtMaven = Artifactory.newMavenBuild()
