@@ -1,44 +1,41 @@
 pipeline {
-    agent {
-	    docker { 
-		    reuseNode true
-		    image 'maven:3.5.2-jdk-8-alpine' 
-		}
+	node {
+		def server
+		def rtMaven
+		def buildInfo
 	}
 	environment {
-	    IMAGE = readMavenPom().getArtifactId()
-        VERSION = readMavenPom().getVersion()
-    }
+		MAGE = readMavenPom().getArtifactId()
+		VERSION = readMavenPom().getVersion()
+	}
 	
-    stages {
-	    stage('Build') {
-            steps {
-			    checkout scm
-                sh 'mvn clean findbugs:findbugs package'               
-            }
-    	    post {
-                success {
-                archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
-                }
-            } 
-		}	
-	    stage('Artifactory'){
-		    steps {
-			    sh 'mvn --version'
-			    script{
-			         def server = Artifactory.server('artifactory2')
-			         def rtMaven = Artifactory.newMavenBuild()
-				    rtMaven.tool = 'maven352'
-				    env.JAVA_HOME ='/usr/lib/jvm/java-1.8-openjdk/jre'
-				    def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
-			   	    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-				    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-				    rtMaven.deployer.deployArtifacts buildInfo
-				    server.publishBuildInfo buildInfo
+	stages {
+		stage('Build') {
+			steps {
+				checkout scm
+				sh 'mvn clean findbugs:findbugs package'
+			}
+			post {
+				success {
+				archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
 				}
-			    }
-							
-				
+			}
+		}	
+		stage('Artifactory configuration'){
+			server = Artifactory.server('artifactory2')
+			rtMaven = Artifactory.newMavenBuild()
+			buildInfo = Artifactory.newBuildInfo()
+			rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+			rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
 		}
-    }
+		stage('Install'){
+			rtMaven.run pom: 'jenkins_project/pom.xml', goals: 'clean install'
+		}
+		stage('Deploy'){
+		rtMaven.deployer.deployArtifacts buildInfo
+		}
+		stage('Publish build info'){
+			server.publishBuildInfo buildInfo
+		}
+	}
 }
