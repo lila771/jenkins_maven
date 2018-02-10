@@ -8,7 +8,8 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
-        <build>
+     <build>
+     <distributionManagement>
          <plugins>
      <plugin>
         <artifactId>Maven-compiler-plugin</artifactId>
@@ -35,7 +36,8 @@
         </configuration>
      </plugin>
 </plugins>
-                 </build>
+<distributionManagement/>
+</build>
          
     <modules>
         <module>modules/helloworld</module>
