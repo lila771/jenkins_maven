@@ -39,30 +39,7 @@
     <version>2.8.2</version>
 </dependency>
                     </dependencies>
-              </plugin> 
-     <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>Maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
-        <configuration>
-          <archive>
-             <index>true</index>
-             <manifest>
-                <addClasspath>true</addClasspath>
-             </manifest>
-             <manifestEntries>
-                <Implementation-Version>1.0</Implementation-Version>
-             </manifestEntries>
-          </archive>
-        </configuration>
-              <dependencies>
-                       <dependency>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-jar-plugin</artifactId>
-    <version>3.0.2</version>
-</dependency>
-                       </dependencies>
-     </plugin>
+             
   </plugins>
     </build>
          
