@@ -47,6 +47,7 @@
  
    	
 	<build>
+		<finalName>$\{project.artifactId}-$\{project.version}-r$\{buildNumber}</finalName>
 	<pluginManagement>
 		<plugins>
 		<plugin>
@@ -64,10 +65,7 @@
                         <deployProperties>
                             <gradle>awesome</gradle>
                             <review.team>qa</review.team>
-			<groupId>${project.groupId}</groupId>
-   			 <artifactId>${project.artifactId}</artifactId>
-   			 <version>${project.version}</version>
-                        </deployProperties>
+			 </deployProperties>
                         <publisher>
                             <contextUrl>https://oss.jfrog.org</contextUrl>
                             <username>deployer</username>
@@ -79,6 +77,23 @@
                 </execution>
             </executions>
         </plugin>
+			<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <doCheck>true</doCheck>
+          <doUpdate>true</doUpdate>
+        </configuration>
+      </plugin>
 			
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
