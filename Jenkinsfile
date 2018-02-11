@@ -1,5 +1,10 @@
 pipeline {
-	agent any
+	agent {
+	    docker { 
+		    reuseNode true
+		    image 'maven:3.5.2-jdk-8-alpine' 
+		}
+	}
 	environment {
 		IMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
@@ -28,7 +33,7 @@ pipeline {
 						env.JAVA_HOME = '/usr/lib/jvm/java-1.8-openjdk/jre'
 						rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 						rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-						rtMaven.run pom: 'pom.xml', goals: 'clean install'
+						rtMaven.run pom: 'pom.xml', goals: 'install'
 						rtMaven.deployer.deployArtifacts buildInfo
 						server.publishBuildInfo buildInfo
 					}
