@@ -19,17 +19,17 @@
         			<name>artifactory2-snapshots</name>
        				 <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
     			</snapshotRepository>
-    				<repository>
-        				<id>central</id>
-        				<name>artifactory2-releases</name>
-        				<url>http://35.185.126.66:8081/artifactory/libs-release-local</url>
-    				</repository>
-				<snapshotRepository>
-       					 <id>snapshots</id>
-       					 <name>artifactory2-snapshots</name>
-       					 <url>http://35.185.126.66:8081/artifactory/libs-snapshot-local</url>
-   				 </snapshotRepository>
-		</distributionManagement>
+    			<repository>
+        			<id>central</id>
+        			<name>artifactory2-releases</name>
+        			<url>http://35.185.126.66:8081/artifactory/libs-release-local</url>
+    			</repository>
+			<snapshotRepository>
+       				 <id>snapshots</id>
+       				 <name>artifactory2-snapshots</name>
+       				 <url>http://35.185.126.66:8081/artifactory/libs-snapshot-local</url>
+   			 </snapshotRepository>
+	</distributionManagement>
 	
 	<build>
 	<pluginManagement>
