@@ -47,6 +47,7 @@
  
    	
 	<build>
+		<finalName>${project.artifactId}-${Hello_World.version}</finalName>
 		<pluginManagement>
 		<plugins>
 		<plugin>
