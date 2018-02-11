@@ -98,6 +98,27 @@
         </configuration>
       </plugin>
 			
+			 <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>${properties-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <quiet>true</quiet>
+                            <files>
+                                <file>../../build.properties</file>
+                                <file>build.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>Maven-compiler-plugin</artifactId>
