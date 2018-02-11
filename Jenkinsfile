@@ -29,6 +29,8 @@ pipeline {
 						rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 						rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
 						rtMaven.run pom: 'pom.xml', goals: 'install'
+						rtMaven.deployer.artifactDeploymentPatterns.addInclude("*.jar")
+						rtMaven.deployer.artifactDeploymentPatterns.addInclude("*.zip")
 						rtMaven.deployer.deployArtifacts buildInfo
 						server.publishBuildInfo buildInfo
 					}
