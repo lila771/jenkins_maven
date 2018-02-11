@@ -9,7 +9,9 @@
 	<packaging>pom</packaging>
 
 
-  <distributionManagement>
+<profiles>
+    <profile>
+      <repositories>
           <repository>
           <snapshots>
             <enabled>false</enabled>
@@ -24,6 +26,7 @@
           <name>libs-snapshot</name>
           <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
         </repository>
+    </repositories>
        <pluginRepositories>
         <pluginRepository>
           <snapshots>
@@ -40,8 +43,13 @@
           <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
 	  </snapshots>
         </pluginRepository>
-      </pluginRepositories>
-       </distributionManagement>
+      </pluginRepositories> 
+<id>artifactory</id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles></distributionManagement>
  
    	
 	<build>
