@@ -28,7 +28,7 @@ pipeline {
 						env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
 						rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 						rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-						rtMaven.run pom: 'pom.xml', goals: 'install'
+						rtMaven.run pom: 'pom.xml', goals: 'install -Dv=${BUILD_NUMBER}'
 						rtMaven.deployer.deployArtifacts buildInfo
 						server.publishBuildInfo buildInfo
 					}
