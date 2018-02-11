@@ -3,14 +3,14 @@ pipeline {
 	    docker { 
 		    reuseNode true
 		    image 'maven:3.5.2-jdk-8-alpine' 
+		    def server
+		    def rtMaven
+		    def buildInfo
 		}
 	}
 	environment {
 		IMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
-		def server
-		def rtMaven
-		def buildInfo
 		def mvn_version = 'maven352'
 	}
 	stages {
