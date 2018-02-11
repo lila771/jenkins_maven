@@ -10,8 +10,7 @@
 
 
   <distributionManagement>
-      <repositories>
-        <repository>
+          <repository>
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
@@ -25,8 +24,7 @@
           <name>libs-snapshot</name>
           <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
         </repository>
-      </repositories>
-      <pluginRepositories>
+       <pluginRepositories>
         <pluginRepository>
           <snapshots>
             <enabled>false</enabled>
