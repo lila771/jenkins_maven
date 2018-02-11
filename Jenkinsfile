@@ -1,10 +1,5 @@
 pipeline {
-	agent {
-	    docker { 
-		    reuseNode true
-		    image 'maven:3.5.2-jdk-8-alpine' 
-		}
-	}
+	agent any
 	environment {
 		IMAGE = readMavenPom().getArtifactId()
 		VERSION = readMavenPom().getVersion()
