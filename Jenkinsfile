@@ -24,6 +24,7 @@ pipeline {
 		}	
 		stage('Artifactory deploy'){
 			steps{
+				sh 'mvn -version'
 				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 					script {
 						def server = Artifactory.server('artifactory2')
