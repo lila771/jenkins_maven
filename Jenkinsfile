@@ -6,17 +6,17 @@ pipeline {
 		def mvn_version = 'maven352'
 	}
 	stages {
-		//stage('Build') {
-		//	steps {
-		//		checkout scm
-		//		sh 'mvn clean findbugs:findbugs package'
-		//	}
-		//	post {
-		//		success {
-		//		archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
-		//		}
-		//	}
-	//	}	
+		stage('Build') {
+			steps {
+				checkout scm
+				sh 'mvn clean findbugs:findbugs package'
+			}
+			post {
+				success {
+				archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
+				}
+			}
+		}	
 		stage('Artifactory deploy'){
 			steps{
 				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
