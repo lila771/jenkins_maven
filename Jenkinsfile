@@ -42,29 +42,35 @@ pipeline {
 			}
 		}
 		stage('Install') {
-			withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+			steps{
+				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 					script {
 						rtMaven.tool = 'maven352'
 						env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
 						rtMaven.run pom: 'pom.xml', goals: 'clean install -Dmaven.repo.local=.m2'
 					}
+				}
 			}
 		}
 		stage('Deploy') {
-			withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-				script {
-					rtMaven.tool = 'maven352'
-					env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
-					rtMaven.deployer.deployArtifacts buildInfo
+			steps{
+				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+					script {
+						rtMaven.tool = 'maven352'
+						env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
+						rtMaven.deployer.deployArtifacts buildInfo
+					}
 				}
 			}
 		}
 		stage('publish BuildInfo') {
-			withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-				script {
-					rtMaven.tool = 'maven352'
-					env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
-					server.publishBuildInfo buildInfo
+			steps{
+				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+					script {
+						rtMaven.tool = 'maven352'
+						env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
+						server.publishBuildInfo buildInfo
+					}
 				}
 			}
 		}
