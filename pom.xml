@@ -64,6 +64,9 @@
                         <deployProperties>
                             <gradle>awesome</gradle>
                             <review.team>qa</review.team>
+				<groupId>${project.groupId}</groupId>
+   				 <artifactId>${project.artifactId}</artifactId>
+   				 <version>${project.version}</version>
 			 </deployProperties>
                         <publisher>
                             <contextUrl>https://oss.jfrog.org</contextUrl>
