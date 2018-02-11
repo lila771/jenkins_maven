@@ -100,7 +100,7 @@
 			 <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumber-maven-plugin.version}</version>
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -120,7 +120,7 @@
 			 <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
-                <version>${properties-maven-plugin.version}</version>
+                <version>1.0.0</version>
                 <executions>
                     <execution>
                         <phase>initialize</phase>
@@ -130,7 +130,7 @@
                         <configuration>
                             <quiet>true</quiet>
                             <files>
-                                <file>../build.properties</file>
+                                <file>../../build.properties</file>
                                 <file>build.properties</file>
                             </files>
                         </configuration>
