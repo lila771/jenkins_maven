@@ -9,6 +9,13 @@
 	<packaging>pom</packaging>
 
 	<build>
+		<distributionManagement>
+    				<repository>
+        				<id>central</id>
+        				<name>artifactory2-releases</name>
+        				<url>http://35.185.126.66:8081/artifactory/libs-release-local</url>
+    				</repository>
+		</distributionManagement>
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
