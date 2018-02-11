@@ -8,23 +8,8 @@
 	<version>1.0</version>
 	<packaging>pom</packaging>
 
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <servers>
-    <server>
-      <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"*** Insert encrypted password here ***"}</password>
-      <id>central</id>
-    </server>
-    <server>
-      <username>${security.getCurrentUsername()}</username>
-      <password>${security.getEscapedEncryptedPassword()!"*** Insert encrypted password here ***"}</password>
-      <id>snapshots</id>
-    </server>
-  </servers>
-  <profiles>
-    <profile>
+
+  <distributionManagement>
       <repositories>
         <repository>
           <snapshots>
@@ -51,23 +36,47 @@
           <url>http://35.185.126.66:8081/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
-          <snapshots />
+          <snapshots>
           <id>snapshots</id>
           <name>libs-snapshot</name>
           <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
+	  </snapshots>
         </pluginRepository>
       </pluginRepositories>
-      <id>artifactory</id>
-    </profile>
-  </profiles>
-  <activeProfiles>
-    <activeProfile>artifactory</activeProfile>
-  </activeProfiles>
-</settings>
-	
+       </distributionManagement>
+ 
+   	
 	<build>
 	<pluginManagement>
 		<plugins>
+		<plugin>
+            <groupId>org.jfrog.buildinfo</groupId>
+            <artifactId>artifactory-maven-plugin</artifactId>
+            <version>2.6.1</version>
+            <inherited>false</inherited>
+            <executions>
+                <execution>
+                    <id>build-info</id>
+                    <goals>
+                        <goal>publish</goal>
+                    </goals>
+                    <configuration>
+                        <deployProperties>
+                            <gradle>awesome</gradle>
+                            <review.team>qa</review.team>
+                        </deployProperties>
+                        <publisher>
+                            <contextUrl>https://oss.jfrog.org</contextUrl>
+                            <username>deployer</username>
+                            <password>{DESede}...</password>
+                            <repoKey>libs-release-local</repoKey>
+                            <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+                        </publisher>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+			
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>Maven-compiler-plugin</artifactId>
