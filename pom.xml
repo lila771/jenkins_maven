@@ -37,11 +37,9 @@
           <url>http://35.185.126.66:8081/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
-          <snapshots>
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
-	  </snapshots>
+		<url>http://35.185.126.66:8081/artifactory/libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories> 
 <id>artifactory</id>
