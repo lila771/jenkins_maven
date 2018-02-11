@@ -47,8 +47,7 @@
  
    	
 	<build>
-		<finalName>$\{project.artifactId}-$\{project.version}-r$\{buildNumber}</finalName>
-	<pluginManagement>
+		<pluginManagement>
 		<plugins>
 		<plugin>
             <groupId>org.jfrog.buildinfo</groupId>
@@ -140,6 +139,7 @@
 					</manifest>
 					<manifestEntries>
 					<Implementation-Version>1.0</Implementation-Version>
+					<Implementation-Build>$\{buildNumber}</Implementation-Build>
 					</manifestEntries>
 					</archive>
 				</configuration>
