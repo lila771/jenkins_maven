@@ -25,7 +25,6 @@ pipeline {
 		stage('Artifactory deploy'){
 			steps{
 				withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-					sh 'mvn --version'
 					script {
 						def server = Artifactory.server('artifactory2')
 						def rtMaven = Artifactory.newMavenBuild()
@@ -34,7 +33,7 @@ pipeline {
 						env.JAVA_HOME = '/usr/lib/jvm/java-8-oracle/jre'
 						rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 						rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-						rtMaven.run pom: 'pom.xml', goals: 'clean install -Dmaven.repo.local=.m2'
+						rtMaven.run pom: 'pom.xml', goals: 'clean install'
 						rtMaven.deployer.deployArtifacts buildInfo
 						server.publishBuildInfo buildInfo
 					}
